@@ -6,11 +6,11 @@ public class Equipment
     
     public int CharacterId { get; set; }
     
-    public int WeaponId { get; set; }
+    public Weapon? Weapon { get; set; }
     
-    public int ArmorId { get; set; }
+    public Armor? Armor { get; set; }
     
-    public int AccessoryId { get; set; }
+    public Accessory? Accessory { get; set; }
     
-    public int ConsumableId { get; set; }
+    public Consumable? Consumable { get; set; }
 }
