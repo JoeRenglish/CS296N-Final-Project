@@ -30,11 +30,11 @@ public class CharacterRepository : ICharacterRepository
         }
     }
 
-    public IQueryable<Weapon> Weapons { get; }
-    public IQueryable<Armor> Armor { get; }
-    public IQueryable<Accessory> Accessories { get; }
-    public IQueryable<Consumable> Consumables { get; }
-    public IQueryable<Class> Classes { get; }
+    public IQueryable<Weapon> Weapons => _context.Weapons;
+    public IQueryable<Armor> Armor => _context.Armor;
+    public IQueryable<Accessory> Accessories => _context.Accessories;
+    public IQueryable<Consumable> Consumables => _context.Consumables;
+    public IQueryable<Class> Classes => _context.Classes;
 
 
     public async Task<Character?> GetCharacterByIdAsync(int id)
@@ -56,78 +56,98 @@ public class CharacterRepository : ICharacterRepository
         return _context.SaveChanges();
     }
 
-    public Task<Weapon?> GetWeaponByIdAsync(int id)
+    public async Task<Weapon?> GetWeaponByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await Weapons.Where(w => w.WeaponId == id).FirstOrDefaultAsync();
     }
 
-    public Task<int> AddOrUpdateWeaponAsync(Weapon weapon)
+    public async Task<int> AddOrUpdateWeaponAsync(Weapon weapon)
     {
-        throw new NotImplementedException();
+        _context.Weapons.Update(weapon);
+        var result = await _context.SaveChangesAsync();
+        return result;
     }
 
     public int DeleteWeapon(int weaponId)
     {
-        throw new NotImplementedException();
+        Weapon weapon = GetWeaponByIdAsync(weaponId).Result;
+        _context.Weapons.Remove(weapon);
+        return _context.SaveChanges();
     }
 
-    public Task<Armor?> GetArmorByIdAsync(int id)
+    public async Task<Armor?> GetArmorByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await Armor.Where(a => a.ArmorId == id).FirstOrDefaultAsync();
     }
 
-    public Task<int> AddOrUpdateArmorAsync(Armor armor)
+    public async Task<int> AddOrUpdateArmorAsync(Armor armor)
     {
-        throw new NotImplementedException();
+        _context.Armor.Update(armor);
+        var result = await _context.SaveChangesAsync();
+        return result;
     }
 
     public int DeleteArmor(int armorId)
     {
-        throw new NotImplementedException();
+        Armor armor = GetArmorByIdAsync(armorId).Result;
+        _context.Armor.Remove(armor);
+        return _context.SaveChanges();
     }
 
-    public Task<Accessory?> GetAccessoryByIdAsync(int id)
+    public async Task<Accessory?> GetAccessoryByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await Accessories.Where(a => a.AccessoryId == id).FirstOrDefaultAsync();
     }
 
-    public Task<int> AddOrUpdateAccessoryAsync(Accessory accessory)
+    public async Task<int> AddOrUpdateAccessoryAsync(Accessory accessory)
     {
-        throw new NotImplementedException();
+        _context.Accessories.Update(accessory);
+        var result = await _context.SaveChangesAsync();
+        return result;
     }
 
     public int DeleteAccessory(int accessoryId)
     {
-        throw new NotImplementedException();
+        Accessory accessory = GetAccessoryByIdAsync(accessoryId).Result;
+        _context.Accessories.Remove(accessory);
+        return _context.SaveChanges();
     }
 
-    public Task<Consumable?> GetConsumableByIdAsync(int id)
+    public async Task<Consumable?> GetConsumableByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await Consumables.Where(c => c.ConsumableId == id).FirstOrDefaultAsync();
     }
 
-    public Task<int> AddOrUpdateConsumableAsync(Consumable consumable)
+    public async Task<int> AddOrUpdateConsumableAsync(Consumable consumable)
     {
-        throw new NotImplementedException();
+        _context.Consumables.Update(consumable);
+        var result = await _context.SaveChangesAsync();
+        return result;
     }
 
     public int DeleteConsumable(int consumableId)
     {
-        throw new NotImplementedException();
+        Consumable consumable = GetConsumableByIdAsync(consumableId).Result;
+        _context.Consumables.Remove(consumable);
+        return _context.SaveChanges();
     }
 
-    public Task<Class?> GetClassByIdAsync(int id)
+    public async Task<Class?> GetClassByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await Classes.Where(c => c.ClassId == id).FirstOrDefaultAsync();
     }
 
-    public Task<int> AddOrUpdateClassAsync(Class characterClass)
+    public async Task<int> AddOrUpdateClassAsync(Class characterClass)
     {
-        throw new NotImplementedException();
+        _context.Classes.Update(characterClass);
+        var result = await _context.SaveChangesAsync();
+        return result;
     }
 
     public int DeleteClass(int classId)
     {
-        throw new NotImplementedException();
+        Class characterClass = GetClassByIdAsync(classId).Result;
+        _context.Classes.Remove(characterClass);
+        return _context.SaveChanges();
     }
 }
