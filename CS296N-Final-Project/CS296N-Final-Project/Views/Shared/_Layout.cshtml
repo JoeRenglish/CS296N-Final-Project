@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -8,6 +9,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/CS296N_Final_Project.styles.css" asp-append-version="true"/>
 </head>
+
+@inject SignInManager<AppUser> signInManager
+
 <body>
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -26,6 +30,38 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav ms-auto">
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                               
+                            </li>
+                        }
+                        
+                        <li class="nav-item">
+                            <form method="post" asp-action="Logout" asp-controller="Account">
+                                <span class="text-dark">@User.Identity.Name</span>
+                                <input type="submit" value="Log Out" class="btn btn-outline-dark"/>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        var action = ViewContext.RouteData.Values["action"]?.ToString();
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">
+                                Register
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Login" asp-controller="Account" class="btn btn-outlined-dark">
+                                Log In
+                            </a>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </nav>
@@ -38,7 +74,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2025 - CS296N_Final_Project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2025 - Rpg Game - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
