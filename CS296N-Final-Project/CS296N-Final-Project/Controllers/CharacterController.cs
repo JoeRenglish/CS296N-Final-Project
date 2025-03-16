@@ -61,4 +61,10 @@ public class CharacterController : Controller
         }
     }
 
+    public IActionResult DeleteCharacter(int characterId)
+    {
+        repo.DeleteCharacter(characterId);
+        return RedirectToAction("Index");
+    }
+
 }

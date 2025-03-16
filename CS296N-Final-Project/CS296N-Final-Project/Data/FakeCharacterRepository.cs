@@ -5,10 +5,7 @@ namespace CS296N_Final_Project.Data;
 public class FakeCharacterRepository : ICharacterRepository
 {
     public IQueryable<Character> Characters { get; }
-    public IQueryable<Weapon> Weapons { get; }
-    public IQueryable<Armor> Armor { get; }
-    public IQueryable<Accessory> Accessories { get; }
-    public IQueryable<Consumable> Consumables { get; }
+    public IQueryable<Item> Items { get; }
     public IQueryable<Class> Classes { get; }
 
     public async Task<Character?> GetCharacterByIdAsync(int id)
@@ -26,65 +23,21 @@ public class FakeCharacterRepository : ICharacterRepository
         throw new NotImplementedException();
     }
 
-    public async Task<Weapon?> GetWeaponByIdAsync(int id)
+    public Task<Item?> GetItemByIdAsync(int id)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<int> AddOrUpdateWeaponAsync(Weapon weapon)
+    public Task<int> AddOrUpdateItemAsync(Item item)
     {
         throw new NotImplementedException();
     }
 
-    public int DeleteWeapon(int weaponId)
+    public int DeleteItem(int itemId)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Armor?> GetArmorByIdAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<int> AddOrUpdateArmorAsync(Armor armor)
-    {
-        throw new NotImplementedException();
-    }
-
-    public int DeleteArmor(int armorId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<Accessory?> GetAccessoryByIdAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<int> AddOrUpdateAccessoryAsync(Accessory accessory)
-    {
-        throw new NotImplementedException();
-    }
-
-    public int DeleteAccessory(int accessoryId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<Consumable?> GetConsumableByIdAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<int> AddOrUpdateConsumableAsync(Consumable consumable)
-    {
-        throw new NotImplementedException();
-    }
-
-    public int DeleteConsumable(int consumableId)
-    {
-        throw new NotImplementedException();
-    }
 
     public async Task<Class?> GetClassByIdAsync(int id)
     {

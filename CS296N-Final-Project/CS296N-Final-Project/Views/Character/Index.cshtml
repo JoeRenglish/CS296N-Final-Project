@@ -13,6 +13,9 @@
     {
         <p>
             @character.Name
+            @character.Gold
+            @if(@character.Class != null) @character.Class.Name
         </p>
+        <a asp-controller="Character" asp-action="DeleteCharacter" asp-route-characterId="@character.CharacterId">Delete</a>
     }
 }

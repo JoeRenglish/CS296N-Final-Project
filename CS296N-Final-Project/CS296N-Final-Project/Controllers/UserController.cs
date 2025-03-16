@@ -1,3 +1,4 @@
+using CS296N_Final_Project.Data;
 using CS296N_Final_Project.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,13 +8,15 @@ namespace CS296N_Final_Project.Controllers;
 
 public class UserController : Controller
 {
+    ICharacterRepository _repo;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<AppUser> _userManager;
 
-    public UserController(UserManager<AppUser> userM, RoleManager<IdentityRole> roleM)
+    public UserController(UserManager<AppUser> userM, RoleManager<IdentityRole> roleM, ICharacterRepository r)
     {
         _userManager = userM;
         _roleManager = roleM;
+        _repo = r;
     }
 
     public async Task<IActionResult> Index()
@@ -35,6 +38,15 @@ public class UserController : Controller
         var user = await _userManager.FindByIdAsync(id);
         if (user != null)
         {
+            var characters = _repo.Characters.ToList();
+            foreach (Character c in characters)
+            {
+                if (c.AppUser == user)
+                {
+                    _repo.DeleteCharacter(c.CharacterId);
+                }
+            }
+
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
             {

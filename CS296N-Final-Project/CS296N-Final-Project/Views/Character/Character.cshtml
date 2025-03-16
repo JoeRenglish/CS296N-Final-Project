@@ -5,37 +5,20 @@
     ViewData["Title"] = "Create a character";
 }
 
-@{
-    Stats stats = new Stats
-    {
-        Attack = 1,
-        Defense = 1,
-        HitPoints = 10,
-        Speed = 1
-    };
-    Equipment equipment = new Equipment
-    {
-        Weapon = null,
-        Armor = null,
-        Accessory = null,
-        Consumable = null,
-    };
-    Class characterClass = new Class
-    {
-        ClassId = 1,
-        Name = "Warrior",
-        Description = "A melee fighter."
-    };
-}
+
 <div class="container">
     <div class="d-flex justify-content-center" >
-        <form method="post" class="form-control p-4">
+        <form method="post" class="form-control p-4" asp-action="Create">
             <label asp-for="Name">Name:</label>
             <input asp-for="Name" type="text" class="form-control" placeholder="enter your character name"/>
             <input type="number" asp-for="Gold" value="0" style="display: none"/>
-            <input asp-for="Stats" value="@stats" style="display: none" />
-            <input asp-for="Equipment" value="@equipment" style="display: none" />
-            <input asp-for="Class" value="@characterClass" style="display: none" />
+            <input type="number" asp-for="HitPoints" value="10" style="display: none"/>
+            <input type="number" asp-for="MagicPoints" value="10" style="display: none"/>
+            <input type="number" asp-for="Strength" value="1" style="display: none"/>
+            <input type="number" asp-for="Dexterity" value="1" style="display: none"/>
+            <input type="number" asp-for="Vigor" value="1" style="display: none"/>
+            <input type="number" asp-for="Level" value="1" style="display: none"/>
+            <input type="number" asp-for="Experience" value="0" style="display: none"/>
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>

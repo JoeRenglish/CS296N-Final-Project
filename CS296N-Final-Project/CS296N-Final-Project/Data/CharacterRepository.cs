@@ -17,23 +17,12 @@ public class CharacterRepository : ICharacterRepository
         get
         {
             return _context.Characters
-                .Include(c => c.Stats)
-                .Include(c => c.Equipment)
-                .ThenInclude(e => e.Weapon)
-                .Include(e => e.Equipment)
-                .ThenInclude(e => e.Armor)
-                .Include(e => e.Equipment)
-                .ThenInclude(e => e.Accessory)
-                .Include(e => e.Equipment)
-                .ThenInclude(e => e.Consumable)
+                .Include(c => c.AppUser)
                 .Include(c => c.Class);
         }
     }
 
-    public IQueryable<Weapon> Weapons => _context.Weapons;
-    public IQueryable<Armor> Armor => _context.Armor;
-    public IQueryable<Accessory> Accessories => _context.Accessories;
-    public IQueryable<Consumable> Consumables => _context.Consumables;
+    public IQueryable<Item> Items => _context.Items;
     public IQueryable<Class> Classes => _context.Classes;
 
 
@@ -57,82 +46,28 @@ public class CharacterRepository : ICharacterRepository
         return _context.SaveChanges();
     }
 
-    public async Task<Weapon?> GetWeaponByIdAsync(int id)
+    
+
+    public async Task<Item?> GetItemByIdAsync(int id)
     {
-        return await Weapons.Where(w => w.WeaponId == id).FirstOrDefaultAsync();
+        return await Items.Where(a => a.ItemId == id).FirstOrDefaultAsync();
     }
 
-    public async Task<int> AddOrUpdateWeaponAsync(Weapon weapon)
+    public async Task<int> AddOrUpdateItemAsync(Item item)
     {
-        _context.Weapons.Update(weapon);
+        _context.Items.Update(item);
         var result = await _context.SaveChangesAsync();
         return result;
     }
 
-    public int DeleteWeapon(int weaponId)
+    public int DeleteItem(int itemId)
     {
-        Weapon weapon = GetWeaponByIdAsync(weaponId).Result;
-        _context.Weapons.Remove(weapon);
+        Item item = GetItemByIdAsync(itemId).Result;
+        _context.Items.Remove(item);
         return _context.SaveChanges();
     }
 
-    public async Task<Armor?> GetArmorByIdAsync(int id)
-    {
-        return await Armor.Where(a => a.ArmorId == id).FirstOrDefaultAsync();
-    }
-
-    public async Task<int> AddOrUpdateArmorAsync(Armor armor)
-    {
-        _context.Armor.Update(armor);
-        var result = await _context.SaveChangesAsync();
-        return result;
-    }
-
-    public int DeleteArmor(int armorId)
-    {
-        Armor armor = GetArmorByIdAsync(armorId).Result;
-        _context.Armor.Remove(armor);
-        return _context.SaveChanges();
-    }
-
-    public async Task<Accessory?> GetAccessoryByIdAsync(int id)
-    {
-        return await Accessories.Where(a => a.AccessoryId == id).FirstOrDefaultAsync();
-    }
-
-    public async Task<int> AddOrUpdateAccessoryAsync(Accessory accessory)
-    {
-        _context.Accessories.Update(accessory);
-        var result = await _context.SaveChangesAsync();
-        return result;
-    }
-
-    public int DeleteAccessory(int accessoryId)
-    {
-        Accessory accessory = GetAccessoryByIdAsync(accessoryId).Result;
-        _context.Accessories.Remove(accessory);
-        return _context.SaveChanges();
-    }
-
-    public async Task<Consumable?> GetConsumableByIdAsync(int id)
-    {
-        return await Consumables.Where(c => c.ConsumableId == id).FirstOrDefaultAsync();
-    }
-
-    public async Task<int> AddOrUpdateConsumableAsync(Consumable consumable)
-    {
-        _context.Consumables.Update(consumable);
-        var result = await _context.SaveChangesAsync();
-        return result;
-    }
-
-    public int DeleteConsumable(int consumableId)
-    {
-        Consumable consumable = GetConsumableByIdAsync(consumableId).Result;
-        _context.Consumables.Remove(consumable);
-        return _context.SaveChanges();
-    }
-
+    
     public async Task<Class?> GetClassByIdAsync(int id)
     {
         return await Classes.Where(c => c.ClassId == id).FirstOrDefaultAsync();

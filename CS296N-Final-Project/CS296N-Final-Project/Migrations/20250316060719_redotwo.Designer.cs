@@ -3,6 +3,7 @@ using System;
 using CS296N_Final_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CS296N_Final_Project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250316060719_redotwo")]
+    partial class redotwo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +30,10 @@ namespace CS296N_Final_Project.Migrations
                     b.Property<int?>("AccessoryItemId")
                         .HasColumnType("int");
 
-                    b.Property<string>("AppUserId")
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AppUserId1")
                         .HasColumnType("varchar(255)");
 
                     b.Property<int?>("ArmorItemId")
@@ -71,7 +76,7 @@ namespace CS296N_Final_Project.Migrations
 
                     b.HasIndex("AccessoryItemId");
 
-                    b.HasIndex("AppUserId");
+                    b.HasIndex("AppUserId1");
 
                     b.HasIndex("ArmorItemId");
 
@@ -359,7 +364,7 @@ namespace CS296N_Final_Project.Migrations
 
                     b.HasOne("CS296N_Final_Project.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId1");
 
                     b.HasOne("CS296N_Final_Project.Models.Item", "Armor")
                         .WithMany()

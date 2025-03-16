@@ -29,71 +29,81 @@ public class SeedData
             context.Classes.Add(characterClass);
             
             // Create a new Weapon
-            var weapon = new Weapon
+            var weapon = new Item
             {
                 Name = "Short Sword",
                 Description = "A short sword.",
-                Damage = 2,
-                Element = ""
+                AttackValue = 2,
+                DefenseValue = 0,
+                SpeedValue = 0,
+                HealValue = 0,
+                Category = "Weapon",
             };
             
             // Add the created weapon to the context
-            context.Weapons.Add(weapon);
+            context.Items.Add(weapon);
             
             // Create a new piece of armor
-            var armor = new Armor
+            var armor = new Item
             {
                 Name = "Leather Armor",
                 Description = "A set of leather armor.",
-                DamageReduction = 2
+                AttackValue = 0,
+                DefenseValue = 2,
+                SpeedValue = 0,
+                HealValue = 0,
+                Category = "Armor",
             };
             
             // Add the created armor to the context
-            context.Armor.Add(armor);
+            context.Items.Add(armor);
             
             // Create a new accessory 
-            var accessory = new Accessory
+            var accessory = new Item
             {
                 Name = "Silver Bracelet",
                 Description = "A beautiful, silver bracelet.",
-                Effect = ""
+                AttackValue = 0,
+                DefenseValue = 0,
+                SpeedValue = 1,
+                HealValue = 0,
+                Category = "Accessory",
             };
             
             // Add the created accessory to the context
-            context.Accessories.Add(accessory);
+            context.Items.Add(accessory);
             
             // Create a new consumable
-            var consumable = new Consumable
+            var consumable = new Item
             {
                 Name = "Potion",
-                Description = "A vial of healing potion.",
-                Effect = "",
-                HealValue = 3
+                Description = "A vial of healing potion",
+                AttackValue = 0,
+                DefenseValue = 0,
+                SpeedValue = 0,
+                HealValue = 3,
+                Category = "Consumable",
             };
             
             // Add the created consumable to the context
-            context.Consumables.Add(consumable);
+            context.Items.Add(consumable);
 
             // Create a new character
             var character = new Character
             {
                 AppUser = joseph,
                 Name = "Hawk",
-                Stats = new Stats
-                {
-                    Attack = 1,
-                    Defense = 1,
-                    HitPoints = 10,
-                    Speed = 1
-                },
                 Class = characterClass,
-                Equipment = new Equipment
-                {
-                    Weapon = weapon,
-                    Armor = armor,
-                    Accessory = accessory,
-                    Consumable = consumable,
-                }
+                Strength = 1,
+                Vigor = 1,
+                Dexterity = 1,
+                HitPoints = 10,
+                MagicPoints = 10,
+                Level = 1,
+                Experience = 0,
+                Weapon = weapon,
+                Armor = armor,
+                Accessory = accessory,
             };
             
             // Add the created character to the context
@@ -103,21 +113,17 @@ public class SeedData
             {
                 AppUser = jynastie,
                 Name = "Alice",
-                Stats = new Stats
-                {
-                    Attack = 1,
-                    Defense = 1,
-                    HitPoints = 10,
-                    Speed = 1
-                },
                 Class = characterClass,
-                Equipment = new Equipment
-                {
-                    Weapon = weapon,
-                    Armor = armor,
-                    Accessory = accessory,
-                    Consumable = consumable,
-                }
+                Strength = 1,
+                Vigor = 1,
+                Dexterity = 1,
+                HitPoints = 10,
+                MagicPoints = 10,
+                Level = 1,
+                Experience = 0,
+                Weapon = weapon,
+                Armor = armor,
+                Accessory = accessory,
             };
             
             context.Characters.Add(character);
@@ -126,21 +132,17 @@ public class SeedData
             {
                 AppUser = kazner,
                 Name = "Grugg",
-                Stats = new Stats
-                {
-                    Attack = 1,
-                    Defense = 1,
-                    HitPoints = 10,
-                    Speed = 1
-                },
                 Class = characterClass,
-                Equipment = new Equipment
-                {
-                    Weapon = weapon,
-                    Armor = armor,
-                    Accessory = accessory,
-                    Consumable = consumable,
-                }
+                Strength = 1,
+                Vigor = 1,
+                Dexterity = 1,
+                HitPoints = 10,
+                MagicPoints = 10,
+                Level = 1,
+                Experience = 0,
+                Weapon = weapon,
+                Armor = armor,
+                Accessory = accessory,
             };
 
             context.Characters.Add(character);
