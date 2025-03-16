@@ -1,0 +1,18 @@
+@model List<Character>
+@{
+    ViewBag.Title = "Your Character";
+}
+
+<a asp-controller="Character" asp-action="Character">Create a Character</a>
+
+@if (Model.Count != 0)
+{
+    
+    
+    foreach (Character character in Model)
+    {
+        <p>
+            @character.Name
+        </p>
+    }
+}

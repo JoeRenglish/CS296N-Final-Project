@@ -29,10 +29,19 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Character" asp-action="Index">Character</a>
+                        </li>
+                    }
+
+
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     @if (signInManager.IsSignedIn(User))
                     {
+                       
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">

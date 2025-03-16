@@ -1,0 +1,42 @@
+@using Microsoft.EntityFrameworkCore.Migrations
+@model Character
+
+@{
+    ViewData["Title"] = "Create a character";
+}
+
+@{
+    Stats stats = new Stats
+    {
+        Attack = 1,
+        Defense = 1,
+        HitPoints = 10,
+        Speed = 1
+    };
+    Equipment equipment = new Equipment
+    {
+        Weapon = null,
+        Armor = null,
+        Accessory = null,
+        Consumable = null,
+    };
+    Class characterClass = new Class
+    {
+        ClassId = 1,
+        Name = "Warrior",
+        Description = "A melee fighter."
+    };
+}
+<div class="container">
+    <div class="d-flex justify-content-center" >
+        <form method="post" class="form-control p-4">
+            <label asp-for="Name">Name:</label>
+            <input asp-for="Name" type="text" class="form-control" placeholder="enter your character name"/>
+            <input type="number" asp-for="Gold" value="0" style="display: none"/>
+            <input asp-for="Stats" value="@stats" style="display: none" />
+            <input asp-for="Equipment" value="@equipment" style="display: none" />
+            <input asp-for="Class" value="@characterClass" style="display: none" />
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
+</div>
