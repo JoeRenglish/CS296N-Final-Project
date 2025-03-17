@@ -7,7 +7,7 @@ namespace CS296N_Final_Project.Data;
 public class ApplicationDbContext : IdentityDbContext
 {
     public ApplicationDbContext(
-        DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        DbContextOptions<ApplicationDbContext> options) : base(options) {  }
     
     public DbSet<Character> Characters { get; set; }
     public DbSet<Item> Items { get; set; }

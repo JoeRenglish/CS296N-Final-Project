@@ -1,5 +1,6 @@
 using CS296N_Final_Project.Models;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 
 namespace CS296N_Final_Project.Data;
 
@@ -10,8 +11,9 @@ public class CharacterRepository : ICharacterRepository
     public CharacterRepository(ApplicationDbContext appDbContext)
     {
         _context = appDbContext;
+        _context.Database.SetCommandTimeout(0);
     }
-
+    
     public IQueryable<Character> Characters
     {
         get

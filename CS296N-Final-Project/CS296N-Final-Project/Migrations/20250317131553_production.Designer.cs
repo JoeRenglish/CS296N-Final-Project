@@ -3,6 +3,7 @@ using System;
 using CS296N_Final_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -11,55 +12,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CS296N_Final_Project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250311001516_initial")]
-    partial class initial
+    [Migration("20250317131553_production")]
+    partial class production
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.36")
+                .HasAnnotation("ProductVersion", "8.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("CS296N_Final_Project.Models.Accessory", b =>
-                {
-                    b.Property<int>("AccessoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Effect")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("AccessoryId");
-
-                    b.ToTable("Accessories");
-                });
-
-            modelBuilder.Entity("CS296N_Final_Project.Models.Armor", b =>
-                {
-                    b.Property<int>("ArmorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("DamageReduction")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("ArmorId");
-
-                    b.ToTable("Armor");
-                });
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
             modelBuilder.Entity("CS296N_Final_Project.Models.Character", b =>
                 {
@@ -67,23 +31,63 @@ namespace CS296N_Final_Project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CharacterId"));
+
+                    b.Property<int?>("AccessoryItemId")
+                        .HasColumnType("int");
+
                     b.Property<string>("AppUserId")
                         .HasColumnType("varchar(255)");
 
+                    b.Property<int?>("ArmorItemId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ClassId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Dexterity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Experience")
                         .HasColumnType("int");
 
                     b.Property<int>("Gold")
                         .HasColumnType("int");
 
+                    b.Property<int>("HitPoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MagicPoints")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
+
+                    b.Property<int>("Strength")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Vigor")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WeaponItemId")
+                        .HasColumnType("int");
 
                     b.HasKey("CharacterId");
 
+                    b.HasIndex("AccessoryItemId");
+
                     b.HasIndex("AppUserId");
 
+                    b.HasIndex("ArmorItemId");
+
                     b.HasIndex("ClassId");
+
+                    b.HasIndex("WeaponItemId");
 
                     b.ToTable("Characters");
                 });
@@ -93,6 +97,8 @@ namespace CS296N_Final_Project.Migrations
                     b.Property<int>("ClassId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ClassId"));
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -105,116 +111,47 @@ namespace CS296N_Final_Project.Migrations
                     b.ToTable("Classes");
                 });
 
-            modelBuilder.Entity("CS296N_Final_Project.Models.Consumable", b =>
+            modelBuilder.Entity("CS296N_Final_Project.Models.Item", b =>
                 {
-                    b.Property<int>("ConsumableId")
+                    b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ItemId"));
+
+                    b.Property<int>("AttackValue")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("DefenseValue")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Effect")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Element")
                         .HasColumnType("longtext");
 
                     b.Property<int>("HealValue")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("ConsumableId");
-
-                    b.ToTable("Consumables");
-                });
-
-            modelBuilder.Entity("CS296N_Final_Project.Models.Equipment", b =>
-                {
-                    b.Property<int>("EquipmentId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("SpeedValue")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AccessoryId")
-                        .HasColumnType("int");
+                    b.HasKey("ItemId");
 
-                    b.Property<int?>("ArmorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ConsumableId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WeaponId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EquipmentId");
-
-                    b.HasIndex("AccessoryId");
-
-                    b.HasIndex("ArmorId");
-
-                    b.HasIndex("CharacterId")
-                        .IsUnique();
-
-                    b.HasIndex("ConsumableId");
-
-                    b.HasIndex("WeaponId");
-
-                    b.ToTable("Equipment");
-                });
-
-            modelBuilder.Entity("CS296N_Final_Project.Models.Stats", b =>
-                {
-                    b.Property<int>("StatsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Attack")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Defense")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HitPoints")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Speed")
-                        .HasColumnType("int");
-
-                    b.HasKey("StatsId");
-
-                    b.HasIndex("CharacterId")
-                        .IsUnique();
-
-                    b.ToTable("Stats");
-                });
-
-            modelBuilder.Entity("CS296N_Final_Project.Models.Weapon", b =>
-                {
-                    b.Property<int>("WeaponId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Damage")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Element")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("WeaponId");
-
-                    b.ToTable("Weapons");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -249,6 +186,8 @@ namespace CS296N_Final_Project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("ClaimType")
                         .HasColumnType("longtext");
 
@@ -280,7 +219,8 @@ namespace CS296N_Final_Project.Migrations
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(13)
+                        .HasColumnType("varchar(13)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -333,7 +273,9 @@ namespace CS296N_Final_Project.Migrations
 
                     b.ToTable("AspNetUsers", (string)null);
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+                    b.HasDiscriminator().HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -341,6 +283,8 @@ namespace CS296N_Final_Project.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("longtext");
@@ -430,59 +374,35 @@ namespace CS296N_Final_Project.Migrations
 
             modelBuilder.Entity("CS296N_Final_Project.Models.Character", b =>
                 {
+                    b.HasOne("CS296N_Final_Project.Models.Item", "Accessory")
+                        .WithMany()
+                        .HasForeignKey("AccessoryItemId");
+
                     b.HasOne("CS296N_Final_Project.Models.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("AppUserId");
+
+                    b.HasOne("CS296N_Final_Project.Models.Item", "Armor")
+                        .WithMany()
+                        .HasForeignKey("ArmorItemId");
 
                     b.HasOne("CS296N_Final_Project.Models.Class", "Class")
                         .WithMany()
                         .HasForeignKey("ClassId");
 
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Class");
-                });
-
-            modelBuilder.Entity("CS296N_Final_Project.Models.Equipment", b =>
-                {
-                    b.HasOne("CS296N_Final_Project.Models.Accessory", "Accessory")
+                    b.HasOne("CS296N_Final_Project.Models.Item", "Weapon")
                         .WithMany()
-                        .HasForeignKey("AccessoryId");
-
-                    b.HasOne("CS296N_Final_Project.Models.Armor", "Armor")
-                        .WithMany()
-                        .HasForeignKey("ArmorId");
-
-                    b.HasOne("CS296N_Final_Project.Models.Character", null)
-                        .WithOne("Equipment")
-                        .HasForeignKey("CS296N_Final_Project.Models.Equipment", "CharacterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CS296N_Final_Project.Models.Consumable", "Consumable")
-                        .WithMany()
-                        .HasForeignKey("ConsumableId");
-
-                    b.HasOne("CS296N_Final_Project.Models.Weapon", "Weapon")
-                        .WithMany()
-                        .HasForeignKey("WeaponId");
+                        .HasForeignKey("WeaponItemId");
 
                     b.Navigation("Accessory");
 
+                    b.Navigation("AppUser");
+
                     b.Navigation("Armor");
 
-                    b.Navigation("Consumable");
+                    b.Navigation("Class");
 
                     b.Navigation("Weapon");
-                });
-
-            modelBuilder.Entity("CS296N_Final_Project.Models.Stats", b =>
-                {
-                    b.HasOne("CS296N_Final_Project.Models.Character", null)
-                        .WithOne("Stats")
-                        .HasForeignKey("CS296N_Final_Project.Models.Stats", "CharacterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -534,13 +454,6 @@ namespace CS296N_Final_Project.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CS296N_Final_Project.Models.Character", b =>
-                {
-                    b.Navigation("Equipment");
-
-                    b.Navigation("Stats");
                 });
 #pragma warning restore 612, 618
         }

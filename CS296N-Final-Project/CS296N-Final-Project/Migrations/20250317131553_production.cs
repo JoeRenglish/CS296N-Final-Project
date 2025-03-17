@@ -6,48 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CS296N_Final_Project.Migrations
 {
-    public partial class initial : Migration
+    /// <inheritdoc />
+    public partial class production : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Accessories",
-                columns: table => new
-                {
-                    AccessoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Effect = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Accessories", x => x.AccessoryId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Armor",
-                columns: table => new
-                {
-                    ArmorId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    DamageReduction = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Armor", x => x.ArmorId);
-                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -75,7 +40,7 @@ namespace CS296N_Final_Project.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Discriminator = table.Column<string>(type: "longtext", nullable: false)
+                    Discriminator = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     SignUpDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     Name = table.Column<string>(type: "longtext", nullable: true)
@@ -127,42 +92,29 @@ namespace CS296N_Final_Project.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Consumables",
+                name: "Items",
                 columns: table => new
                 {
-                    ConsumableId = table.Column<int>(type: "int", nullable: false)
+                    ItemId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
+                    Description = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Category = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Effect = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Element = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AttackValue = table.Column<int>(type: "int", nullable: false),
+                    DefenseValue = table.Column<int>(type: "int", nullable: false),
+                    SpeedValue = table.Column<int>(type: "int", nullable: false),
                     HealValue = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Consumables", x => x.ConsumableId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Weapons",
-                columns: table => new
-                {
-                    WeaponId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Damage = table.Column<int>(type: "int", nullable: false),
-                    Element = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Weapons", x => x.WeaponId);
+                    table.PrimaryKey("PK_Items", x => x.ItemId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -301,9 +253,19 @@ namespace CS296N_Final_Project.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     AppUserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Gold = table.Column<int>(type: "int", nullable: false),
+                    Experience = table.Column<int>(type: "int", nullable: false),
+                    Level = table.Column<int>(type: "int", nullable: false),
+                    Strength = table.Column<int>(type: "int", nullable: false),
+                    Vigor = table.Column<int>(type: "int", nullable: false),
+                    Dexterity = table.Column<int>(type: "int", nullable: false),
+                    HitPoints = table.Column<int>(type: "int", nullable: false),
+                    MagicPoints = table.Column<int>(type: "int", nullable: false),
+                    WeaponItemId = table.Column<int>(type: "int", nullable: true),
+                    ArmorItemId = table.Column<int>(type: "int", nullable: true),
+                    AccessoryItemId = table.Column<int>(type: "int", nullable: true),
                     ClassId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -319,74 +281,21 @@ namespace CS296N_Final_Project.Migrations
                         column: x => x.ClassId,
                         principalTable: "Classes",
                         principalColumn: "ClassId");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Equipment",
-                columns: table => new
-                {
-                    EquipmentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CharacterId = table.Column<int>(type: "int", nullable: false),
-                    WeaponId = table.Column<int>(type: "int", nullable: true),
-                    ArmorId = table.Column<int>(type: "int", nullable: true),
-                    AccessoryId = table.Column<int>(type: "int", nullable: true),
-                    ConsumableId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Equipment", x => x.EquipmentId);
                     table.ForeignKey(
-                        name: "FK_Equipment_Accessories_AccessoryId",
-                        column: x => x.AccessoryId,
-                        principalTable: "Accessories",
-                        principalColumn: "AccessoryId");
+                        name: "FK_Characters_Items_AccessoryItemId",
+                        column: x => x.AccessoryItemId,
+                        principalTable: "Items",
+                        principalColumn: "ItemId");
                     table.ForeignKey(
-                        name: "FK_Equipment_Armor_ArmorId",
-                        column: x => x.ArmorId,
-                        principalTable: "Armor",
-                        principalColumn: "ArmorId");
+                        name: "FK_Characters_Items_ArmorItemId",
+                        column: x => x.ArmorItemId,
+                        principalTable: "Items",
+                        principalColumn: "ItemId");
                     table.ForeignKey(
-                        name: "FK_Equipment_Characters_CharacterId",
-                        column: x => x.CharacterId,
-                        principalTable: "Characters",
-                        principalColumn: "CharacterId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Equipment_Consumables_ConsumableId",
-                        column: x => x.ConsumableId,
-                        principalTable: "Consumables",
-                        principalColumn: "ConsumableId");
-                    table.ForeignKey(
-                        name: "FK_Equipment_Weapons_WeaponId",
-                        column: x => x.WeaponId,
-                        principalTable: "Weapons",
-                        principalColumn: "WeaponId");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Stats",
-                columns: table => new
-                {
-                    StatsId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CharacterId = table.Column<int>(type: "int", nullable: false),
-                    Attack = table.Column<int>(type: "int", nullable: false),
-                    Defense = table.Column<int>(type: "int", nullable: false),
-                    Speed = table.Column<int>(type: "int", nullable: false),
-                    HitPoints = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stats", x => x.StatsId);
-                    table.ForeignKey(
-                        name: "FK_Stats_Characters_CharacterId",
-                        column: x => x.CharacterId,
-                        principalTable: "Characters",
-                        principalColumn: "CharacterId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Characters_Items_WeaponItemId",
+                        column: x => x.WeaponItemId,
+                        principalTable: "Items",
+                        principalColumn: "ItemId");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -428,9 +337,19 @@ namespace CS296N_Final_Project.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Characters_AccessoryItemId",
+                table: "Characters",
+                column: "AccessoryItemId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Characters_AppUserId",
                 table: "Characters",
                 column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Characters_ArmorItemId",
+                table: "Characters",
+                column: "ArmorItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Characters_ClassId",
@@ -438,38 +357,12 @@ namespace CS296N_Final_Project.Migrations
                 column: "ClassId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Equipment_AccessoryId",
-                table: "Equipment",
-                column: "AccessoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Equipment_ArmorId",
-                table: "Equipment",
-                column: "ArmorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Equipment_CharacterId",
-                table: "Equipment",
-                column: "CharacterId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Equipment_ConsumableId",
-                table: "Equipment",
-                column: "ConsumableId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Equipment_WeaponId",
-                table: "Equipment",
-                column: "WeaponId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Stats_CharacterId",
-                table: "Stats",
-                column: "CharacterId",
-                unique: true);
+                name: "IX_Characters_WeaponItemId",
+                table: "Characters",
+                column: "WeaponItemId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -488,34 +381,19 @@ namespace CS296N_Final_Project.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Equipment");
-
-            migrationBuilder.DropTable(
-                name: "Stats");
+                name: "Characters");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Accessories");
-
-            migrationBuilder.DropTable(
-                name: "Armor");
-
-            migrationBuilder.DropTable(
-                name: "Consumables");
-
-            migrationBuilder.DropTable(
-                name: "Weapons");
-
-            migrationBuilder.DropTable(
-                name: "Characters");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Classes");
+
+            migrationBuilder.DropTable(
+                name: "Items");
         }
     }
 }
