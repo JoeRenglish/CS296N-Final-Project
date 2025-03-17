@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CS296N_Final_Project.Models;
 
 public class Character
@@ -7,6 +9,8 @@ public class Character
     
     public AppUser? AppUser { get; set; }
     
+    [Required]
+    [StringLength(25)]
     public string? Name { get; set; }
     
     public int Gold { get; set; }

@@ -31,6 +31,13 @@ public class GameController : Controller
             where r.AppUser == model.AppUser
             select r).ToListAsync<Character>();
         var character = characters.FirstOrDefault();
-        return View(character);
+        if (character == null)
+        {
+            return RedirectToAction("Index", "Character");
+        }
+        else
+        {
+            return View(character);
+        }
     }
 }

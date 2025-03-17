@@ -28,7 +28,7 @@
                     <tbody>
                     <tr>
                         <td>Hit Points</td>
-                        <td>@Model.HitPoints</td>
+                        <td id="hp">@Model.HitPoints</td>
                     </tr>
                     <tr>
                         <td>Magic Points</td>
@@ -44,7 +44,7 @@
                     </tr>
                     <tr>
                         <td>Dexterity</td>
-                        <td>@Model.Dexterity</td>
+                        <td id="dex">@Model.Dexterity</td>
                     </tr>
                     </tbody>
                 </table>
@@ -53,7 +53,7 @@
 
             </div>
         </div>
-        <div class="col" id="gamescreen">
+        <div class="col d-flex justify-content-center p-3" id="gamescreen">
            
         </div>
     </div>
@@ -82,6 +82,15 @@
             challengeType: 'dexterity',
             challengeValue: 10,
         },
+        {
+            name: 'Strange Wall',
+            description: 'You see some strange glyphs upon the wall. You cannot make them out.',
+            image: 'strangewall.png',
+            question: 'What direction would you like to go?',
+            type: 'room',
+            challengeType: null,
+            challengeValue: null,
+        }
 
 
 
@@ -89,6 +98,7 @@
 
 
     let explore = true;
+    let rm = 0;
     const gameUI = document.getElementById("gameui");
     const gameScreen = document.getElementById("gamescreen")
     const uiExplore = ` <h3 class="text-light">Choose Direction</h3>
@@ -96,17 +106,19 @@
                         <button id="left" class="btn btn-dark mb-2">Left</button>
                         <button id="right" class="btn btn-dark mb-2">Right</button>
                         <button id="down" class="btn btn-dark mb-2">Down</button>`;
+
+    const uiTrap = `<button id="jump" class="btn btn-dark mb-2">Jump</button>`;
+                     
+                     
     const uiFight = `<button id="attack" class="btn btn-dark mb-2">Attack</button>
                      <button id="defend" class="btn btn-dark mb-2">Defend</button>
                      <button id="run" class="btn btn-dark mb-2">Run</button>`;
 
-    const upButton = document.getElementById("up");
-    const downButton = document.getElementById("down");
-    const leftButton = document.getElementById("left");
-    const rightButton = document.getElementById("right");
+    
 
     let randRoom = Math.floor(Math.random()*rooms.length);
     const randomRoomHtml = `<div>
+                                <p style="color= white">Room ${rm}</p>
                                 <h1 style="color: white">${rooms[randRoom].name}</h1>
                                 <p style="color: white">${rooms[randRoom].description}</p>
                                 <img class="sprite" src="images/${rooms[randRoom].image}" />
@@ -114,24 +126,63 @@
                             <div>`;
    
     function renderRoom() {
-        
+        let randRoom = Math.floor(Math.random()*rooms.length);
+        let randomRoomHtml = `<div>
+                                <p style="color= white">Room ${rm}</p>
+                                <h1 style="color: white">${rooms[randRoom].name}</h1>
+                                <p style="color: white">${rooms[randRoom].description}</p>
+                                <img class="sprite" src="images/${rooms[randRoom].image}" />
+                                <p style="color: white">${rooms[randRoom].question}</p>
+                            <div>`;
         gameScreen.innerHTML = randomRoomHtml;
+        rm++;
+        return randRoom;
     }
-   
+
+    let room = renderRoom();
+
     if (explore) {
-        renderRoom();
-        switch (rooms[randRoom].type)
-        {
-            case "room":
-                gameUI.innerHTML = uiExplore;
-                upButton.addEventListener('click', () => {
-                    renderRoom();
-                })
-            break;
-            
-            case "trap":
-            break;
+        const rerender = () => {
+            if (rooms[room].type === "room") {
+                const renderGameUI = () => gameUI.innerHTML = uiExplore;
+                renderGameUI();
+                
+                const upButton = document.getElementById("up");
+                const downButton = document.getElementById("down");
+                const leftButton = document.getElementById("left");
+                const rightButton = document.getElementById("right");
+                
+                upButton.addEventListener('click', () => {room = renderRoom(); rerender();});
+                downButton.addEventListener('click', () => {room = renderRoom(); rerender();});
+                leftButton.addEventListener('click', () => {room = renderRoom(); rerender();});
+                rightButton.addEventListener('click', () => {room = renderRoom(); rerender();});
+                
+            } else if (rooms[room].type === "trap") {
+                const renderTrapUI = () => gameUI.innerHTML = uiTrap; 
+                renderTrapUI();
+                    
+                const jumpButton = document.getElementById("jump");
+                jumpButton.addEventListener('click', () => { 
+                    let currentHp = document.getElementById("hp").textContent;
+                    currentHp = parseInt(currentHp);
+                    let dc = rooms[room].challengeValue;
+                    let dexMod = document.getElementById("dex").textContent;
+                    let roll = Math.floor(Math.random()*20) + 1;
+                    let rollValue = roll + parseInt(dexMod);
+                    if (rollValue >= dc) {
+                        alert(rollValue);
+                        room = renderRoom();
+                        rerender();
+                    } else {
+                        currentHp--;
+                        const updateHp = () => document.getElementById("hp").textContent = currentHp.toString();
+                        updateHp();
+                        alert(currentHp.toString());
+                    }
+                });
+            }
         }
+        rerender();
     }
 
 
