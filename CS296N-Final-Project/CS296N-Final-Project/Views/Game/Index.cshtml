@@ -1,0 +1,141 @@
+@model Character
+
+@{
+    ViewData["Title"] = "Play";
+}
+
+<form method="post" class="form-control p-4" asp-action="Create" style="display: none">
+    <label asp-for="Name">Name:</label>
+    <input asp-for="Name" type="text" class="form-control" value="@Model.Name" style="display: none"/>
+    <input type="number" asp-for="Gold" value="@Model.Gold" style="display: none"/>
+    <input type="number" asp-for="HitPoints" value="@Model.HitPoints" style="display: none"/>
+    <input type="number" asp-for="MagicPoints" value="@Model.MagicPoints" style="display: none"/>
+    <input type="number" asp-for="Strength" value="@Model.Strength" style="display: none"/>
+    <input type="number" asp-for="Dexterity" value="@Model.Dexterity" style="display: none"/>
+    <input type="number" asp-for="Vigor" value="@Model.Vigor" style="display: none"/>
+    <input type="number" asp-for="Level" value="@Model.Level" style="display: none"/>
+    <input type="number" asp-for="Experience" value="@Model.Experience" style="display: none"/>
+    <button type="submit" class="btn btn-primary" style="display: none">Create</button>
+</form>
+
+
+<div id="gamecontainer" class="container-fluid">
+    <div class="row">
+        <div id="charactercontainer" class="col-2">
+            <div class="row" id="character">
+                <h2 class="text-light">@Model.Name</h2>
+                <table class="table table-dark">
+                    <tbody>
+                    <tr>
+                        <td>Hit Points</td>
+                        <td>@Model.HitPoints</td>
+                    </tr>
+                    <tr>
+                        <td>Magic Points</td>
+                        <td>@Model.MagicPoints</td>
+                    </tr>
+                    <tr>
+                        <td>Strength</td>
+                        <td>@Model.Strength</td>
+                    </tr>
+                    <tr>
+                        <td>Vigor</td>
+                        <td>@Model.Vigor</td>
+                    </tr>
+                    <tr>
+                        <td>Dexterity</td>
+                        <td>@Model.Dexterity</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="gameui" class="row">
+
+            </div>
+        </div>
+        <div class="col" id="gamescreen">
+           
+        </div>
+    </div>
+   
+</div>
+
+
+<script>
+    //import { enemies} from "../../wwwroot/js/enemies";
+    const rooms = [
+        {
+            name: 'hallway',
+            description: 'You see a long hallway stretched out before you.',
+            image: 'hallway.png',
+            question: 'What direction would you like to go?',
+            type: 'room',
+            challengeType: null,
+            challengeValue: null,
+        },
+        {
+            name: 'Floor Trap',
+            description: 'The floor starts to fall from under you. A hole of spikes lie beneath your feet',
+            image: 'spikepit.png',
+            question: 'What direction would you like to go?',
+            type: 'trap',
+            challengeType: 'dexterity',
+            challengeValue: 10,
+        },
+
+
+
+    ];
+
+
+    let explore = true;
+    const gameUI = document.getElementById("gameui");
+    const gameScreen = document.getElementById("gamescreen")
+    const uiExplore = ` <h3 class="text-light">Choose Direction</h3>
+                        <button id="up" class="btn btn-dark mb-2">Up</button>
+                        <button id="left" class="btn btn-dark mb-2">Left</button>
+                        <button id="right" class="btn btn-dark mb-2">Right</button>
+                        <button id="down" class="btn btn-dark mb-2">Down</button>`;
+    const uiFight = `<button id="attack" class="btn btn-dark mb-2">Attack</button>
+                     <button id="defend" class="btn btn-dark mb-2">Defend</button>
+                     <button id="run" class="btn btn-dark mb-2">Run</button>`;
+
+    const upButton = document.getElementById("up");
+    const downButton = document.getElementById("down");
+    const leftButton = document.getElementById("left");
+    const rightButton = document.getElementById("right");
+
+    let randRoom = Math.floor(Math.random()*rooms.length);
+    const randomRoomHtml = `<div>
+                                <h1 style="color: white">${rooms[randRoom].name}</h1>
+                                <p style="color: white">${rooms[randRoom].description}</p>
+                                <img class="sprite" src="images/${rooms[randRoom].image}" />
+                                <p style="color: white">${rooms[randRoom].question}</p>
+                            <div>`;
+   
+    function renderRoom() {
+        
+        gameScreen.innerHTML = randomRoomHtml;
+    }
+   
+    if (explore) {
+        renderRoom();
+        switch (rooms[randRoom].type)
+        {
+            case "room":
+                gameUI.innerHTML = uiExplore;
+                upButton.addEventListener('click', () => {
+                    renderRoom();
+                })
+            break;
+            
+            case "trap":
+            break;
+        }
+    }
+
+
+
+    
+</script>
+

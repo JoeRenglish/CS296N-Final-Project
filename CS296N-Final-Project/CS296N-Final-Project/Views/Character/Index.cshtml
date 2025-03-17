@@ -3,7 +3,7 @@
     ViewBag.Title = "Your Character";
 }
 
-<a asp-controller="Character" asp-action="Character">Create a Character</a>
+
 
 @if (Model.Count != 0)
 {
@@ -11,11 +11,50 @@
     
     foreach (Character character in Model)
     {
-        <p>
-            @character.Name
-            @character.Gold
-            @if(@character.Class != null) @character.Class.Name
-        </p>
+        <div id="charactercontainer" style="width: 200px; justify-content: center;">
+            <div class="row" id="character">
+                <h2 class="text-light">@character.Name Lvl @character.Level</h2>
+                <table class="table table-dark" >
+                    <tbody>
+                    <tr>
+                        <td>Experience</td>
+                        <td>@character.Experience</td>
+                    </tr>
+                    <tr>
+                        <td>Gold</td>
+                        <td>@character.Gold</td>
+                    </tr>
+                    <tr>
+                        <td>Hit Points</td>
+                        <td>@character.HitPoints</td>
+                    </tr>
+                    <tr>
+                        <td>Magic Points</td>
+                        <td>@character.MagicPoints</td>
+                    </tr>
+                    <tr>
+                        <td>Strength</td>
+                        <td>@character.Strength</td>
+                    </tr>
+                    <tr>
+                        <td>Vigor</td>
+                        <td>@character.Vigor</td>
+                    </tr>
+                    <tr>
+                        <td>Dexterity</td>
+                        <td>@character.Dexterity</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="gameui" class="row">
+
+            </div>
+        </div>
         <a asp-controller="Character" asp-action="DeleteCharacter" asp-route-characterId="@character.CharacterId">Delete</a>
     }
+}
+else
+{
+    <a asp-controller="Character" asp-action="Character">Create a Character</a>
 }

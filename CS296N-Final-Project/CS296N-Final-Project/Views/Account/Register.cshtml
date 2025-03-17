@@ -5,11 +5,11 @@
 
 <div class="container">
     <div>
-        <h2>Register</h2>
+        <h2 class="text-light">Register</h2>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <form method="post" asp-action="Register">
             <div class="row mb-2">
-                <label class="col-form-label col-md-2">Username:</label>
+                <label class="col-form-label col-md-2 text-light">Username:</label>
                 <div class="col-md-4">
                     <input asp-for="Username" class="form-control"/>
                 </div>
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="row mb-2">
-                <label class="col-form-label col-md-2">Password:</label>
+                <label class="col-form-label col-md-2 text-light">Password:</label>
                 <div class="col-md-4">
                     <input type="password" asp-for="Password" class="form-control"/>
                 </div>
@@ -27,18 +27,18 @@
                 </div>
             </div>
             <div class="row mb-2">
-                <label class="col-form-label col-md-2">Confirm Password:</label>
+                <label class="col-form-label col-md-2 text-light">Confirm Password:</label>
                 <div class="col-md-4">
                     <input type="password" asp-for="ConfirmPassword" class="form-control"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col offset-md-2">
-                    <button type="submit" class="btn btn-primary">Register</button> <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Cancel</a>
+                    <button type="submit" class="btn btn-outline-light">Register</button> <a asp-action="Index" asp-controller="Home" class="btn btn-outline-light">Cancel</a>
                 </div>
             </div>
             <div class="row">
-                <div class="col offset-md-2"> Already have an account? <a asp-action="LogIn">Log In</a> </div>
+                <div class="col offset-md-2 text-light"> Already have an account? <a asp-action="LogIn">Log In</a> </div>
             </div>
         </form>
     </div>

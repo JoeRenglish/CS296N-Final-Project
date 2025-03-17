@@ -5,11 +5,11 @@
 
 <div class="container">
     <div>
-        <h2>Login</h2>
+        <h2 class="text-light">Login</h2>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <form method="post" asp-action="LogIn" asp-route-returnUrl="@Model.ReturnUrl">
             <div class="row mb-2">
-                <label class="col-form-label col-md-2">Username:</label>
+                <label class="col-form-label col-md-2 text-light">Username:</label>
                 <div class="col-md-4">
                     <input asp-for="Username" class="form-control" />
                 </div>
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="row mb-2">
-                <label class="col-form-label col-md-2">Password:</label>
+                <label class="col-form-label col-md-2 text-light">Password:</label>
                 <div class="col-md-4">
                     <input type="password" asp-for="Password" class="form-control" />
                 </div>
@@ -29,16 +29,16 @@
             <div class="row mb-2">
                 <div class="col offset-md-2">
                     <input type="checkbox" title="Remember Me" asp-for="RememberMe" class="form-check-inline" />
-                    <label>Remember Me</label>
+                    <label class="text-light">Remember Me</label>
                 </div>
             </div>
             <div class="row">
                 <div class="col offset-md-2">
-                    <button type="submit" class="btn btn-primary">Log In</button>
+                    <button type="submit" class="btn btn-outline-light">Log In</button>
                 </div>
             </div>
             <div class="row">
-                <div class="col offset-md-2">
+                <div class="col offset-md-2 text-light">
                     Don't have an account?
                     <a asp-action="Register">Register here</a>
                 </div>                
